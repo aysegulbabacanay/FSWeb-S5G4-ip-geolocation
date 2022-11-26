@@ -13314,29 +13314,27 @@ function ipAdresimiAl() {
 	ADIM 5'e gelene kadar fonksiyonunuzu test etmek için ip nizi URL'ye manuel olarak ekleyebilirsiniz.
 */
 /*
-	"sorgu":"88.236.241.246",
-	"durum":"OK",
-	"kıta":"Asia",
-	"ülke":"Turkey",
-	"ülkeKodu":"TR",
-	"ülkebayrağı":"https:\/\/apis.ergineer.com\/ulkebayraklari\/TR",
-	"bölge":"34",
-	"bölgeAdı":"Istanbul",
-	"şehir":"Istanbul",
-	"zip":"34110",
-	"enlem":41.01970000000000027284841053187847137451171875,
-	"boylam":28.975699999999999789679350215010344982147216796875,
-	"saatdilimi":"Europe\/Istanbul",
-	"parabirimi":"TRY",
-	"isp":"TurkTelecom",
-	"organizasyon":"Turk Telekomunikasyon A.S",
-	"as":"AS47331 TTNet A.S."
-  }
-  */
-/*
 	ADIM 2: Geri döndürülen verileri inceleyin, bu sizin ip bilgileriniz! Bileşen fonksiyonunuzu geliştirmek içindeki bu veri yapısını
 	iyice anlamanız gerekmektedir.
-	
+	{
+  "sorgu":"88.236.241.246",
+  "durum":"OK",
+  "kıta":"Asia",
+  "ülke":"Turkey",
+  "ülkeKodu":"TR",
+  "ülkebayrağı":"https:\/\/apis.ergineer.com\/ulkebayraklari\/TR",
+  "bölge":"34",
+  "bölgeAdı":"Istanbul",
+  "şehir":"Istanbul",
+  "zip":"34110",
+  "enlem":41.01970000000000027284841053187847137451171875,
+  "boylam":28.975699999999999789679350215010344982147216796875,
+  "saatdilimi":"Europe\/Istanbul",
+  "parabirimi":"TRY",
+  "isp":"TurkTelecom",
+  "organizasyon":"Turk Telekomunikasyon A.S",
+  "as":"AS47331 TTNet A.S."
+}
 */
 /*
 	ADIM 3: Argümanı sadece 1 nesne kabül eden bir fonksiyon oluşturun.
@@ -13355,97 +13353,10 @@ function ipAdresimiAl() {
 	</div>
     </div>
 */
-function _ipAdresimiAl() {
-  _ipAdresimiAl = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return (0, _axios.default)({
-              method: 'get',
-              url: 'https://apis.ergineer.com/ipadresim'
-            }).then(function (response) {
-              return response.data;
-            }).then(function (a) {
-              benimIP = a;
-            });
-          case 2:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _ipAdresimiAl.apply(this, arguments);
-}
-var cardOlusturma = function cardOlusturma(veri) {
-  var divCard = document.createElement("div");
-  divCard.classList.add("card");
-  var imgCard = document.createElement("img");
-  var divCardInfo = document.createElement("div");
-  var h3Ip = document.createElement("h3");
-  var pUlke = document.createElement("p");
-  var pEnlemBoylam = document.createElement("p");
-  var pSehir = document.createElement("p");
-  var pSaat = document.createElement("p");
-  var pPara = document.createElement("p");
-  var pISP = document.createElement("p");
-  imgCard.src = veri.data["ülkebayrağı"];
-  divCardInfo.classList.add("card-info");
-  h3Ip.classList.add("ip");
-  pUlke.classList.add("ulke");
-  h3Ip.textContent = veri.data.sorgu;
-  pUlke.textContent = "".concat(veri.data.ülke, " (").concat(veri.data.ülkeKodu, ")");
-  pEnlemBoylam.textContent = "Enlem: ".concat(veri.data.enlem, " Boylam: ").concat(veri.data.boylam);
-  pSehir.textContent = "\u015Eehir: ".concat(veri.data.bölgeAdı);
-  pSaat.textContent = "Saat dilimi: ".concat(veri.data.saatdilimi);
-  pPara.textContent = "Para birimi: ".concat(veri.data.parabirimi);
-  pISP.textContent = "ISP: ".concat(veri.data.isp);
-  divCardInfo.appendChild(h3Ip);
-  divCardInfo.appendChild(pUlke);
-  divCardInfo.appendChild(pEnlemBoylam);
-  divCardInfo.appendChild(pSehir);
-  divCardInfo.appendChild(pSaat);
-  divCardInfo.appendChild(pPara);
-  divCardInfo.appendChild(pISP);
-  divCard.appendChild(imgCard);
-  divCard.appendChild(divCardInfo);
-  return divCard;
-};
-
 /*
 	ADIM 4: API'den alınan verileri kullanarak ADIM 3'te verilen yapıda bir kart oluşturun ve 
 	bu kartı DOM olarak .cards elementinin içine ekleyin. 
 */
-var divCard2 = document.querySelector("div.cards");
-var axiosCekme = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return ipAdresimiAl();
-          case 2:
-            _axios.default.get("https://apis.ergineer.com/ipgeoapi/" + benimIP).then(function (resp) {
-              return resp;
-            }).then(function (veriler) {
-              divCard2.appendChild(cardOlusturma(veriler));
-            }).catch(new Error("Hata"));
-          case 3:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return function axiosCekme() {
-    return _ref.apply(this, arguments);
-  };
-}();
-axiosCekme();
-
 /*
 	ADIM 5: Manuel olarak eklediğiniz IP adresini dinamiğe dönüştürün. 
 	Sayfanın en üstünde ---değiştirmeyin--- etiketleri arasında yer alan asenkron ipAdresimiAl() fonksiyonuna 
@@ -13453,8 +13364,94 @@ axiosCekme();
 	bilgisayarınızın IP adresini atayacaktır. 
 	Örnek dinamik URL kullanımı: var url = "https://apis.ergineer.com/ipgeoapi/"+benimIP; 
 */
-
 //kodlar buraya gelecek
+function _ipAdresimiAl() {
+  _ipAdresimiAl = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return (0, _axios.default)({
+              method: "get",
+              url: "https://apis.ergineer.com/ipadresim"
+            }).then(function (response) {
+              return response.data;
+            }).then(function (a) {
+              benimIP = a;
+            });
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _ipAdresimiAl.apply(this, arguments);
+}
+function cardMarker(object) {
+  var divcard_ = document.createElement("div");
+  divcard_.classList.add("card");
+  var img_ = document.createElement("img");
+  // img_.setAttribute("src", object["ülkebayrağı"]) ;
+  img_.src = object["ülkebayrağı"];
+  divcard_.appendChild(img_);
+  var divCardInfo_ = document.createElement("div");
+  divCardInfo_.classList.add("card-info");
+  divcard_.appendChild(divCardInfo_);
+  var h3_ = document.createElement("h3");
+  h3_.classList.add("ip");
+  h3_.textContent = object["sorgu"];
+  divCardInfo_.appendChild(h3_);
+  var ulke = document.createElement("p");
+  ulke.classList.add("ülke");
+  ulke.textContent = object["ülke"] + " (" + object["ülkeKodu"] + ")";
+  divCardInfo_.appendChild(ulke);
+  var enlem = document.createElement("p");
+  enlem.textContent = "Enlem: ".concat(object["enlem"], " Boylam: ").concat(object["boylam"]);
+  divCardInfo_.appendChild(enlem);
+  var sehir = document.createElement("p");
+  sehir.textContent = object["şehir"];
+  divCardInfo_.appendChild(sehir);
+  var saat = document.createElement("p");
+  saat.textContent = "Saat dilimi : ".concat(object["saatdilimi"]);
+  divCardInfo_.appendChild(saat);
+  var para = document.createElement("p");
+  para.textContent = "Para birimi : ".concat(object["parabirimi"]);
+  divCardInfo_.appendChild(para);
+  var isp = document.createElement("p");
+  isp.textContent = "ISP: ".concat(object["isp"]);
+  divCardInfo_.appendChild(isp);
+  return divcard_;
+}
+var cards = document.querySelector(".cards");
+function getData() {
+  return _getData.apply(this, arguments);
+}
+function _getData() {
+  _getData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return ipAdresimiAl();
+          case 2:
+            _axios.default.get("https://apis.ergineer.com/ipgeoapi/" + benimIP).then(function (response) {
+              return response.data;
+            }).then(function (ipDatasi) {
+              cards.appendChild(cardMarker(ipDatasi));
+            });
+          case 3:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _getData.apply(this, arguments);
+}
+getData();
 },{"axios":"node_modules/axios/index.js","babel-core/register":"node_modules/babel-core/register.js","babel-polyfill":"node_modules/babel-polyfill/lib/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -13480,7 +13477,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62490" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56456" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
